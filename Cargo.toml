@@ -1,0 +1,6 @@
+[workspace]
+resolver = "3"
+members = ["bvec_kani", "bvec_verus", "common_verus", "option_verus", "ringbuf_kani", "ringbuf_verus", "shared_nostd"]
+
+[workspace.metadata.kani.flags]
+output-format = "terse"

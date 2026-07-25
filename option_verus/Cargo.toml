@@ -1,0 +1,19 @@
+[package]
+name = "option_verus"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+vstd = "=0.0.0-2026-06-14-0213"
+
+[package.metadata.verus]
+verify = true
+
+[lints.rust]
+# Verus supports ghost code, code that is used for proofs but erased during compilation.
+# Ghost items imported via `use` do not exist during a normal `cargo build`, so those use
+# statements are guarded with the `verus_only` cfg, which Verus turns on during verification.
+# This suppression stops cargo from complaining that `verus_only` is undeclared.
+unexpected_cfgs = { level = "warn", check-cfg = [
+  'cfg(verus_only)',
+] }
