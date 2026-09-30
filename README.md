@@ -1,4 +1,4 @@
-# Formally verified data structure exercises in Rust
+# Formally verified data structures in Rust
 
 This project is the fruit of an effort to learn formal verification software frameworks in conjunction with the Rust language and mindset. I treat each of two data structures (a bounded vector and a ring buffer) in each of two verification frameworks (Kani and Verus), as well as a custom Option type in Verus. The Verus-verified ring buffer spec was the most interesting and challenging of the exercises, and I would regard it as the meat of the project.
 
