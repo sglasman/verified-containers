@@ -8,7 +8,7 @@ All the code is written in `no_std` rust, meaning that heap allocation is unavai
 
 Verifying properties of a bounded vector type using Kani. I prove: 
 - A push-pop round trip on an empty vector is the identity (`push_pop_round_trip()`).
-- A random sequence of push/pop operations on an empty vector produces a vector of the expected length, as computed by a direct calculation (`apply_operations()`).
+- An arbitrary sequence of push/pop operations on an empty vector produces a vector of the expected length, as computed by a direct calculation (`apply_operations()`).
 - All values are dropped when the vector goes out of scope (`check_drops()`). This is important because the implementation of the vector uses `MaybeUninit`, whose values don't get cleaned up automatically.
 - `push` and `pop` follow first-in-last-out semantics (`first_in_last_out()`)
 - Panic-freedom and unsafe-access-freedom of all the above is automatically proved by Kani.
@@ -42,7 +42,7 @@ pub struct Bvec<T, const N: usize> {
 
 ## ringbuf_verus
 
-The Verus ring buffer crate is formally closely analogous to the Verus bounded vector crate, but the proofs are much harder, because I have to dig into Verus's modular arithmetic library to get the proofs to go. I regard this crate as the meat of this project.
+The Verus ring buffer crate is formally closely analogous to the Verus bounded vector crate, but the proofs are much harder, because I have to dig into Verus's modular arithmetic library to get the proofs to go.
 - I track `tail` in addition to `len`; again, the view is a Verus `Seq`, this time counted from the tail and wrapping rather than starting at index 0. 
 - I calculate indices to push and pop at using a `safe_add_mod_N` function that performs modular addition verifiably avoiding overflow. 
 - Verification of the `push/pop` and `transact_successful_push/pop` functions requires a key lemma proving that a `slot` function that normalizes the index to set the tail at 0 is injective.
